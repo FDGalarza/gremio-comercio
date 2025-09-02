@@ -57,9 +57,25 @@ export class CrearComercianteComponent implements OnInit {
   cargarComerciante(id: number) {
   this.comerciantesService.obtenerPorId(id).subscribe({
       next: (response) => {
-        console.log('Respuesta completa:', response.data);
-         // accede al objeto comerciante dentro de data
-        this.form.patchValue(response.data);
+        const comerciante = response.data;
+        console.log('Respuesta completa:', comerciante);
+
+        // Rellenar formulario con datos básicos
+        // Rellenar formulario campo a campo
+        this.form.patchValue({
+          nombreRazonSocial: comerciante.nombreRazonSocial ?? '',
+          correoElectronico: comerciante.correoElectronico ?? '',
+          estado: comerciante.estado ?? '',
+          municipio: comerciante.municipio ?? '',
+          telefono: comerciante.telefono ?? '',
+          fechaRegistro: comerciante.fechaRegistro
+            ? new Date(comerciante.fechaRegistro)
+            : new Date()
+        });
+
+        // Asignar sumatorias
+        this.totalIngresos = comerciante.totalEmpleados ?? 0;
+        this.totalEmpleados = comerciante.totalEmpleados ?? 0;
       },
       error: (err) => {
         console.error('Error al cargar comerciante:', err);
@@ -87,6 +103,7 @@ export class CrearComercianteComponent implements OnInit {
       this.comerciantesService.actualizar(this.idComerciante, comerciante).subscribe({
         next: () => this.router.navigate(['/home']),
         error: () => this.errorMsg = 'Error al actualizar comerciante'
+        
       });
     } else {
       this.comerciantesService.crear(comerciante).subscribe({
@@ -96,4 +113,7 @@ export class CrearComercianteComponent implements OnInit {
     }
   }
 
+  cancelar(): void {
+    this.router.navigate(['home']); // Cambia '/' por la ruta de tu home si es diferente
+  }
 }

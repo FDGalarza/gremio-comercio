@@ -131,14 +131,33 @@ public class ComercianteService {
 
     public ComercianteSumatoriasDTO convertirADTO(Comerciante comerciante) {
         ComercianteSumatoriasDTO dto = new ComercianteSumatoriasDTO();
+
+        // Campos básicos del comerciante
         dto.setIdComerciante(comerciante.getIdComerciante());
         dto.setNombreRazonSocial(comerciante.getNombreRazonSocial());
-        dto.setFechaRegistro(comerciante.getFechaRegistro().toString()); // convierte LocalDate a String
+        dto.setCorreoElectronico(comerciante.getCorreoElectronico());
+        dto.setMunicipio(comerciante.getMunicipio());
+        dto.setTelefono(comerciante.getTelefono());
+        dto.setEstado(comerciante.getEstado());
 
-        // Suponiendo que tienes dataSemilla cargada
-        List<Map<String, Integer>> establecimientos = dataSemilla.getOrDefault(comerciante.getIdComerciante(), new ArrayList<>());
-        int totalIngresos = establecimientos.stream().mapToInt(e -> e.get("ingresos")).sum();
-        int totalEmpleados = establecimientos.stream().mapToInt(e -> e.get("cantidadEmpleados")).sum();
+        // Convertir fecha de registro a String
+        if (comerciante.getFechaRegistro() != null) {
+            dto.setFechaRegistro(comerciante.getFechaRegistro().toString());
+        } else {
+            dto.setFechaRegistro(null);
+        }
+
+        // Calcular sumatorias desde dataSemilla
+        List<Map<String, Integer>> establecimientos =
+                dataSemilla.getOrDefault(comerciante.getIdComerciante(), new ArrayList<>());
+
+        int totalIngresos = establecimientos.stream()
+                .mapToInt(e -> e.get("ingresos"))
+                .sum();
+
+        int totalEmpleados = establecimientos.stream()
+                .mapToInt(e -> e.get("cantidadEmpleados"))
+                .sum();
 
         dto.setTotalIngresos(totalIngresos);
         dto.setTotalEmpleados(totalEmpleados);

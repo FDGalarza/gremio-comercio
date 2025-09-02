@@ -12,6 +12,8 @@ export interface Comerciante {
   estado: string;
   fechaActualizacion?: string;
   usuarioActualizacion?: string;
+  totalIngresos?: number;
+  totalEmpleados?: number;
 }
 
 interface ApiResponse<T> {
