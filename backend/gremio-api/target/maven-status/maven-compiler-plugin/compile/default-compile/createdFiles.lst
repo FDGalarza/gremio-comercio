@@ -13,6 +13,7 @@ com\gremio\controller\MunicipioController.class
 com\gremio\App.class
 com\gremio\model\Rol.class
 com\gremio\dto\ComercianteReporteDTO.class
+com\gremio\dto\ComercianteSumatoriasDTO.class
 com\gremio\controller\ReporteComercianteController.class
 com\gremio\model\Comerciante.class
 com\gremio\security\JwtUtil.class

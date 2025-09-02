@@ -15,6 +15,7 @@ C:\gremio-comercio\backend\gremio-api\src\main\java\com\gremio\controller\AuthCo
 C:\gremio-comercio\backend\gremio-api\src\main\java\com\gremio\dto\ComercianteReporteDTO.java
 C:\gremio-comercio\backend\gremio-api\src\main\java\com\gremio\model\Comerciante.java
 C:\gremio-comercio\backend\gremio-api\src\main\java\com\gremio\controller\MunicipioController.java
+C:\gremio-comercio\backend\gremio-api\src\main\java\com\gremio\dto\ComercianteSumatoriasDTO.java
 C:\gremio-comercio\backend\gremio-api\src\main\java\com\gremio\service\MunicipioService.java
 C:\gremio-comercio\backend\gremio-api\src\main\java\com\gremio\App.java
 C:\gremio-comercio\backend\gremio-api\src\main\java\com\gremio\repository\ComercianteReporteRepository.java

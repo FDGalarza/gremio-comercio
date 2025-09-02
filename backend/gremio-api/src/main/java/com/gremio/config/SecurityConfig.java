@@ -33,6 +33,7 @@ public class SecurityConfig {
         this.jwtFilter = jwtFilter;
         this.customUserDetailsService = customUserDetailsService;
     }
+    
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -68,8 +69,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*")); // Permite cualquier origen
-        configuration.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+        configuration.setAllowedOrigins(List.of("http://localhost:4200")); // Permite angular
+        configuration.setAllowedMethods(List.of("GET","POST","PUT", "PATCH","DELETE","OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
 

@@ -1,0 +1,33 @@
+<div class="login-container">
+  <!-- Encabezado principal -->
+  <h3 class="login-title">
+    Inicio de Sesion
+  </h3>
+
+  <!-- Texto descriptivo -->
+  <p class="login-subtitle">
+    Digita tu correo Electrónico y la contraseña
+  </p>
+
+  <!-- Formulario -->
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <!-- Campo Email -->
+    <label for="email">Correo Electrónico</label>
+    <input id="email" type="email" formControlName="email" placeholder="Ingresa tu correo" />
+
+    <!-- Campo Contraseña -->
+    <label for="contrasena">Contraseña</label>
+    <input id="contrasena" type="password" formControlName="contrasena" placeholder="Ingresa tu contraseña" />
+
+    <!-- Checkbox -->
+    <div class="checkbox-container">
+      <input id="aceptarTerminos" type="checkbox" formControlName="aceptarTerminos" />
+      <label for="aceptarTerminos">Acepto los términos y condiciones</label>
+    </div>
+
+    <!-- Botón -->
+    <button type="submit" [disabled]="!loginForm.valid">
+      Ingresar
+    </button>
+  </form>
+</div>

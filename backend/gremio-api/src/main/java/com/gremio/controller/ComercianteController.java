@@ -3,20 +3,26 @@ package com.gremio.controller;
 import com.gremio.api.ApiResponse;
 import com.gremio.model.Comerciante;
 import com.gremio.service.ComercianteService;
+import com.gremio.dto.ComercianteSumatoriasDTO;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Optional;
+import java.util.List;
+import java.util.Map;
+
 
 @RestController
 @RequestMapping("/api/comerciantes")
+@CrossOrigin(origins = "http://localhost:4200") // permite Angular
 public class ComercianteController {
 
     private final ComercianteService comercianteService;
@@ -48,10 +54,11 @@ public class ComercianteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<Comerciante>> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<ComercianteSumatoriasDTO>> obtenerPorId(@PathVariable Long id) {
         Optional<Comerciante> comerciante = comercianteService.buscarPorId(id);
         if (comerciante.isPresent()) {
-            return ResponseEntity.ok(ApiResponse.ok("Comerciante encontrado", comerciante.get()));
+            ComercianteSumatoriasDTO dto = comercianteService.convertirADTO(comerciante.get());
+            return ResponseEntity.ok(ApiResponse.ok("Comerciante encontrado", dto));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ApiResponse.fail("Comerciante no encontrado"));
@@ -105,6 +112,7 @@ public class ComercianteController {
             @RequestParam String estado,
             Principal principal
     ) {
+        System.out.println("Estado cambio 115: "+estado);
         if (!estado.equals("ACTIVO") && !estado.equals("INACTIVO")) {
             return ResponseEntity.badRequest()
                     .body(ApiResponse.fail("Estado inválido. Debe ser ACTIVO o INACTIVO"));

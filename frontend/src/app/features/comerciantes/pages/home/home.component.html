@@ -1,0 +1,60 @@
+<div class="home-container">
+  <h2>Comerciantes Registrados</h2>
+
+  <div class="acciones">
+    <button (click)="descargarCSV()" class="btn btn-primary" *ngIf="esAdmin">Descargar CSV</button>
+    <button routerLink="/comerciantes/crear" class="btn btn-success">Nuevo Comerciante</button>
+    <button (click)="cerrarSesion()" class="btn btn-danger">Cerrar Sesión</button>
+
+  </div>
+
+  <div *ngIf="cargando">Cargando comerciantes...</div>
+  <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
+  <table class="tabla-comerciantes">
+    <thead>
+      <tr>
+        <th>Nombre/Razón Social</th>
+        <th>Teléfono</th>
+        <th>Email</th>
+        <th>Fecha Registro</th>
+        <th>Municipio</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of comerciantes">
+        <td>{{ c.nombreRazonSocial }}</td>
+        <td>{{ c.telefono || '-' }}</td>
+        <td>{{ c.correoElectronico || '-' }}</td>
+        <td>{{ c.fechaRegistro | date }}</td>
+        <td>{{ c.municipio || '-' }}</td> <!-- reemplaza cantidadEstablecimientos -->
+        <td>
+        <span [class.activo]="c.estado === 'ACTIVO'" [class.inactivo]="c.estado === 'INACTIVO'">
+            {{ c.estado }}
+        </span>
+        </td>
+        <td>
+          <button (click)="toggleEstado(c)" class="btn btn-warning">
+              {{ c.estado === 'ACTIVO' ? 'Inactivar' : 'Activar' }}</button>
+          <button [routerLink]="['/comerciantes', c.idComerciante, 'editar']" class="btn btn-info">Editar</button>
+          <button (click)="eliminar(c.idComerciante)" *ngIf="esAdmin" class="btn btn-danger">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="paginacion">
+    <label>
+      Items por página:
+      <select [(ngModel)]="tamanio" (change)="cargarComerciantes()">
+        <option [value]="5">5</option>
+        <option [value]="10">10</option>
+        <option [value]="15">15</option>
+      </select>
+    </label>
+    <button (click)="pagina = pagina - 1; cargarComerciantes()" [disabled]="pagina === 0">Anterior</button>
+    <button (click)="pagina = pagina + 1; cargarComerciantes()" [disabled]="pagina + 1 >= totalPaginas">Siguiente</button>
+  </div>
+</div>
