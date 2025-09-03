@@ -68,7 +68,7 @@
       <button type="submit" [disabled]="form.invalid" class="btn btn-primary">
         {{ modoEdicion ? 'Actualizar' : 'Crear' }}
       </button>
-      <button type="button" class="btn btn-secondary" routerLink="/home">Cancelar</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
     </div>
 
   </form>

@@ -59,7 +59,7 @@ export class CrearComercianteComponent implements OnInit {
       next: (response) => {
         const comerciante = response.data;
         console.log('Respuesta completa:', comerciante);
-
+        
         // Rellenar formulario con datos básicos
         // Rellenar formulario campo a campo
         this.form.patchValue({
@@ -114,6 +114,6 @@ export class CrearComercianteComponent implements OnInit {
   }
 
   cancelar(): void {
-    this.router.navigate(['home']); // Cambia '/' por la ruta de tu home si es diferente
+    this.router.navigate(['/home']);
   }
 }
