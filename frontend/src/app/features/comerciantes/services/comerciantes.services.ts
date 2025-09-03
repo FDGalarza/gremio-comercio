@@ -109,7 +109,7 @@ export class ComerciantesService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    return this.http.get(`${this.apiUrl}/comerciantes-activos/csv`, {
+    return this.http.get(`http://localhost:8080/api/reportes/comerciantes-activos/csv`, {
       headers,
       responseType: 'blob' // clave para archivos
     });
